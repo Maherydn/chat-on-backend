@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
-#[Route('/user/conversation', name: 'user.conversation')]
+#[Route('/api/user/conversation', name: 'user.conversation')]
 class ConversationController extends AbstractController
 {
     #[Route( '/create', name: '.create', methods: ['POST'])]
@@ -86,7 +86,7 @@ class ConversationController extends AbstractController
         }
 
         foreach ($participants as $participant) {
-            if ($participant->getId() === $connectUser->getId()) {
+            if ($participant->getId() !== $connectUser->getId()) {
                 return $participant->getUsername();
             }
         }
@@ -96,8 +96,8 @@ class ConversationController extends AbstractController
     #[Route('', name: '.reads', methods: ['GET'])]
     public function readConversations(MessageRepository $messageRepository, UserRepository $userRepository): Response
     {
-        $connectUser = $userRepository->find(2);
-//        $connectUser = $this->getUser();
+//        $connectUser = $userRepository->find(2);
+        $connectUser = $this->getUser();
 
         $conversations = $connectUser->getConversations();
 

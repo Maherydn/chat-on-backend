@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
-#[Route('/user/message', name: 'user.message')]
+#[Route('/api/user/message', name: 'user.message')]
 class MessageController extends AbstractController
 {
     #[Route( '/create', name: '.create', methods: ['POST'])]
@@ -45,8 +45,8 @@ class MessageController extends AbstractController
                 }
             }
         }
-//        $user = $this->getUser();
-        $user = $userRepository->find(2);
+        $user = $this->getUser();
+//        $user = $userRepository->find(2);
         $message->setSender($user);
 
         $message->setSendAt(new \DateTimeImmutable());

@@ -66,12 +66,7 @@ class UserController extends AbstractController
                 if ($prop === 'roles' && !is_array($value)) {
                     return $this->json(['error' => 'Le champ roles doit être un tableau.'], Response::HTTP_BAD_REQUEST);
                 }
-//                if ($prop === 'departement') {
-//                    $departement = $departementRepository->find($value);
-//                    $user->$setter($departement);
-//                }else {
                     $user->$setter($value);
-//                }
             }
         }
 
@@ -89,6 +84,20 @@ class UserController extends AbstractController
             [],
             [
                 'groups' => ['user.show']
+            ]
+        );
+    }
+
+    #[Route('/me', name: '.me', methods: ['GET'])]
+    public function me(): Response
+    {
+        $user = $this->getUser();
+        return $this->json(
+            $user,
+            Response::HTTP_OK,
+            [],
+            [
+                'groups' => ['user.me']
             ]
         );
     }
