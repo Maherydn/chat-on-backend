@@ -74,16 +74,16 @@ class ConversationController extends AbstractController
     {
         $participants = $conversation->getUsers();
 
-//        if(count($participants) > 2) {
-//            if ($conversation->getTitle()){
-//                return $conversation->getTitle();
-//            }
-//            return "Conversation de groupe .";
-//        }
-
-        if ($conversation->getTitle()){
-            return $conversation->getTitle();
+        if(count($participants) > 2) {
+            if ($conversation->getTitle()){
+                return $conversation->getTitle();
+            }
+            return "Conversation de groupe .";
         }
+
+//        if ($conversation->getTitle()){
+//            return $conversation->getTitle();
+//        }
 
         foreach ($participants as $participant) {
             if ($participant->getId() !== $connectUser->getId()) {
